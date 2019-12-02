@@ -9,7 +9,6 @@ import (
 func day2() {
 	input := strings.Split(string(GetPuzzleInput("input/day2.txt")), ",")
 
-
 	fmt.Println("Day 2: solution one is " + strconv.Itoa(runBasicOPProc(stringSliceToIntSlice(input), 12, 2)))
 	fmt.Println("Day 2: solution two is " + getVerbAndNoun(stringSliceToIntSlice(input), 19690720))
 
@@ -25,10 +24,10 @@ func runBasicOPProc(code []int, noun int, verb int) int {
 		val := code[pointer]
 		switch val {
 		case 1:
-			code[code[pointer + 3]] = code[code[pointer + 1]] + code[code[pointer + 2]]
+			code[code[pointer+3]] = code[code[pointer+1]] + code[code[pointer+2]]
 			pointer += 4
 		case 2:
-			code[code[pointer + 3]] = code[code[pointer + 1]] * code[code[pointer + 2]]
+			code[code[pointer+3]] = code[code[pointer+1]] * code[code[pointer+2]]
 			pointer += 4
 		default:
 			pointer = 99999
@@ -44,7 +43,7 @@ func getVerbAndNoun(input []int, res int) string {
 			code := make([]int, len(input))
 			copy(code, input)
 			if runBasicOPProc(code, i, j) == res {
-				return strconv.Itoa(100 * i + j)
+				return strconv.Itoa(100*i + j)
 			}
 		}
 	}
