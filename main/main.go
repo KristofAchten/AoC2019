@@ -11,6 +11,7 @@ func main() {
 	day1()
 	day2()
 	day3()
+	day4()
 
 	fmt.Println("**********************************************")
 	fmt.Printf("ELAPSED TIME OVER ALL CHALLENGES: %s \n", time.Since(start))
