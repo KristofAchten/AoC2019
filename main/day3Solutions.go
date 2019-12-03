@@ -7,8 +7,9 @@ import (
 )
 
 type Coords struct {
-	x int
-	y int
+	x     int
+	y     int
+	steps int
 }
 
 func day3() {
@@ -31,7 +32,7 @@ func runWiresWithSteps(input []string, overlap Coords) ([]([]Coords), int) {
 	for _, v := range input {
 		cmds := strings.Split(v, ",")
 		var visited []Coords
-		var curCoords = Coords{0, 0}
+		var curCoords = Coords{0, 0, 0}
 
 		for i, sv := range cmds {
 			steps, _ := strconv.Atoi(string(sv[1:]))
@@ -62,25 +63,27 @@ func visit(wire int, x int, y int, steps int, visited []Coords, curCoords Coords
 	if x == 0 {
 		fixedX := curCoords.x
 		curY := curCoords.y
+		curSteps := curCoords.steps
 		for i := 0; i < steps; i++ {
-			cur := Coords{fixedX, curY}
+			cur := Coords{fixedX, curY, curSteps + i}
 			if !contains(visited, cur) {
 				visited = append(visited, cur)
 				curY += y
 			}
 		}
-		return Coords{curCoords.x, curCoords.y + (steps * y)}, visited
+		return Coords{curCoords.x, curCoords.y + (steps * y), curSteps + steps}, visited
 	} else {
 		fixedY := curCoords.y
 		curX := curCoords.x
+		curSteps := curCoords.steps
 		for i := 0; i < steps; i++ {
-			cur := Coords{curX, fixedY}
+			cur := Coords{curX, fixedY, curSteps + i}
 			if !contains(visited, cur) {
 				visited = append(visited, cur)
 				curX += x
 			}
 		}
-		return Coords{curCoords.x + (steps * x), curCoords.y}, visited
+		return Coords{curCoords.x + (steps * x), curCoords.y, curSteps + steps}, visited
 	}
 	panic("shouldn't be here")
 }
@@ -115,9 +118,8 @@ func determineClosestOverlap(coordSets []([]Coords)) int {
 func determineFewestDistance(overlap []Coords, input []string) int {
 	var curBest = 9999999
 	for _, v := range overlap {
-		_, steps := runWiresWithSteps(input, v)
-		if steps < curBest {
-			curBest = steps
+		if v.steps != 0 && v.steps < curBest {
+			curBest = v.steps
 		}
 	}
 	return curBest
