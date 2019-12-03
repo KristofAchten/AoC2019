@@ -4,9 +4,12 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func day1() {
+	start := time.Now()
+
 	input := string(GetPuzzleInput("input/day1.txt"))
 
 	res1 := calculateBaseFuel(input)
@@ -14,6 +17,8 @@ func day1() {
 
 	fmt.Println("Day 1: solution one is " + strconv.Itoa(res1))
 	fmt.Println("Day 1: solution two is " + strconv.Itoa(res2))
+
+	fmt.Printf("DAY 1 STATS: Execution took %s\n\n", time.Since(start))
 }
 
 func calculateBaseFuel(input string) int {
