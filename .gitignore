@@ -1,2 +1,8 @@
 # Default ignored files
 /.idea/workspace.xml
+/.idea/Dbdashboard.xml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/AoC2019.iml
+.idea/modules.xml
+.idea/vcs.xml
