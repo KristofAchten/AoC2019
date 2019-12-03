@@ -12,6 +12,9 @@ type Coords struct {
 	steps int
 }
 
+/*
+	Beware: still needs clean(s)ing
+*/
 func day3() {
 	input := strings.Split(string(GetPuzzleInput("input/day3.txt")), "\n")
 	runFull := runWires(input)
@@ -22,11 +25,6 @@ func day3() {
 }
 
 func runWires(input []string) []([]Coords) {
-	coords, _ := runWiresWithSteps(input, Coords{})
-	return coords
-}
-
-func runWiresWithSteps(input []string, overlap Coords) ([]([]Coords), int) {
 	var coordSets []([]Coords)
 	var totalSteps = 0
 	for _, v := range input {
@@ -50,13 +48,11 @@ func runWiresWithSteps(input []string, overlap Coords) ([]([]Coords), int) {
 			default:
 				panic("Cmd not supported :'( " + string(sv[0]))
 			}
-			if overlap.x == curCoords.x && overlap.y == curCoords.y {
-				break
-			}
 		}
+
 		coordSets = append(coordSets, visited)
 	}
-	return coordSets, totalSteps
+	return coordSets
 }
 
 func visit(wire int, x int, y int, steps int, visited []Coords, curCoords Coords) (Coords, []Coords) {
@@ -96,7 +92,7 @@ func determineOverlap(coordSets []([]Coords)) []Coords {
 
 	for _, v := range coordSets[0] {
 		if contains(coordSets[1], v) {
-			overlap = append(overlap, v)
+			overlap = append(overlap, Coords{v.x, v.y, v.steps + getSteps(coordSets[1], v)})
 		}
 	}
 	return overlap
@@ -139,4 +135,13 @@ func Abs(x int) int {
 		return -x
 	}
 	return x
+}
+
+func getSteps(coordSets []Coords, val Coords) int {
+	for _, v := range coordSets {
+		if v.x == val.x && v.y == val.y {
+			return v.steps
+		}
+	}
+	panic("shouldn't be here son")
 }
