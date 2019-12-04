@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
-	"strings"
 	"time"
 )
 
@@ -28,7 +28,6 @@ func getPwd() []int {
 
 func monotonicRising(candidates []int) []int {
 	var newcandidates []int
-
 	for _, v := range candidates {
 		str := strconv.Itoa(v)
 		var add = true
@@ -67,21 +66,8 @@ func atLeastOneDoubleWithoutSupergroup(candidates []int) []int {
 	for _, v1 := range candidates {
 		doubles := determineDoublesInString(strconv.Itoa(v1))
 
-		var add bool
 		for _, d := range doubles {
-			c := strconv.Itoa(d)
-			strval := strconv.Itoa(v1)
-			add = true
-
-			for i := 3; i < 6; i++ {
-				repStr := strings.Repeat(c, i)
-				if strings.Contains(strval, repStr) {
-					add = false
-					break
-				}
-			}
-
-			if add {
+			if match, _ := regexp.MatchString("["+strconv.Itoa(d)+"]{3}", strconv.Itoa(v1)); !match {
 				newcandidates = append(newcandidates, v1)
 				break
 			}
