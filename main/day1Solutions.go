@@ -23,7 +23,7 @@ func day1() {
 
 func calculateBaseFuel(input string) int {
 
-	parts := strings.Split(input, "\n")
+	parts := strings.Split(input, "\r\n")
 
 	var x int
 	for _, v := range parts {
@@ -34,7 +34,7 @@ func calculateBaseFuel(input string) int {
 }
 
 func calculateAllFuel(input string) int {
-	parts := strings.Split(input, "\n")
+	parts := strings.Split(input, "\r\n")
 
 	var total int
 	for _, v := range parts {
