@@ -15,7 +15,7 @@ type Coords struct {
 func day3() {
 	start := time.Now()
 
-	input := strings.Split(string(GetPuzzleInput("input/day3.txt")), "\n")
+	input := strings.Split(string(getPuzzleInput("input/day3.txt")), "\n")
 	overlap, allSteps := overlap(traceWires(input))
 
 	fmt.Println("Day 3: solution one is " + strconv.Itoa(determineOverlapWithSmallestManhattanDistance(overlap)))
@@ -72,7 +72,7 @@ func determineOverlapWithSmallestManhattanDistance(overlap []Coords) int {
 
 	var curBest = 9999999999
 	for _, v := range overlap {
-		val := Abs(v.x) + Abs(v.y)
+		val := abs(v.x) + abs(v.y)
 		if val != 0 && val < curBest {
 			curBest = val
 		}
@@ -96,7 +96,7 @@ Helper functions
 */
 
 func overlap(coordSets [][]Coords) ([]Coords, []int) {
-	var overlap []Coords
+	var overlaps []Coords
 	var totalSteps []int
 
 	m := sliceToMap(coordSets[0])
@@ -104,12 +104,12 @@ func overlap(coordSets [][]Coords) ([]Coords, []int) {
 	for idx2, v2 := range coordSets[1] {
 		fv, ok := m[v2]
 		if ok {
-			overlap = append(overlap, v2)
+			overlaps = append(overlaps, v2)
 			totalSteps = append(totalSteps, fv+idx2)
 		}
 	}
 
-	return overlap, totalSteps
+	return overlaps, totalSteps
 }
 
 func sliceToMap(set []Coords) map[Coords]int {

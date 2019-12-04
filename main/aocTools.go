@@ -8,7 +8,7 @@ import (
 /**
 Get the puzzle input from the file at a specified path
 */
-func GetPuzzleInput(path string) []byte {
+func getPuzzleInput(path string) []byte {
 	wd, _ := os.Getwd()
 	file, err := os.Open(wd + "/" + path)
 	if err != nil {
@@ -26,7 +26,7 @@ func GetPuzzleInput(path string) []byte {
 /**
 Absolute value for integers.
 */
-func Abs(x int) int {
+func abs(x int) int {
 	if x < 0 {
 		return -x
 	}

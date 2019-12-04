@@ -10,7 +10,7 @@ import (
 func day1() {
 	start := time.Now()
 
-	input := string(GetPuzzleInput("input/day1.txt"))
+	input := string(getPuzzleInput("input/day1.txt"))
 	parts := strings.Split(strings.Replace(input, "\r\n", "\n", -1), "\n")
 
 	fmt.Println("Day 1: solution one is " + strconv.Itoa(calculateBaseFuel(parts)))

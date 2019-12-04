@@ -10,7 +10,7 @@ import (
 func day2() {
 	start := time.Now()
 
-	input := strings.Split(string(GetPuzzleInput("input/day2.txt")), ",")
+	input := strings.Split(string(getPuzzleInput("input/day2.txt")), ",")
 
 	fmt.Println("Day 2: solution one is " + strconv.Itoa(runBasicOPProc(stringSliceToIntSlice(input), 12, 2)))
 	fmt.Println("Day 2: solution two is " + getVerbAndNoun(stringSliceToIntSlice(input), 19690720))
