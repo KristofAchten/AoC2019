@@ -32,3 +32,15 @@ func Abs(x int) int {
 	}
 	return x
 }
+
+/**
+Generate a slice of subsequent integers from f to t inclusive.
+*/
+func generateIntRange(f int, t int) []int {
+	var fullRange []int
+	for i := f; i < t; i++ {
+		fullRange = append(fullRange, i)
+	}
+
+	return fullRange
+}
