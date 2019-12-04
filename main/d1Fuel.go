@@ -11,20 +11,15 @@ func day1() {
 	start := time.Now()
 
 	input := string(GetPuzzleInput("input/day1.txt"))
+	parts := strings.Split(strings.Replace(input, "\r\n", "\n", -1), "\n")
 
-	res1 := calculateBaseFuel(input)
-	res2 := calculateAllFuel(input)
-
-	fmt.Println("Day 1: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 1: solution two is " + strconv.Itoa(res2))
+	fmt.Println("Day 1: solution one is " + strconv.Itoa(calculateBaseFuel(parts)))
+	fmt.Println("Day 1: solution two is " + strconv.Itoa(calculateAllFuel(parts)))
 
 	fmt.Printf("DAY 1 STATS: Execution took %s\n\n", time.Since(start))
 }
 
-func calculateBaseFuel(input string) int {
-
-	parts := strings.Split(input, "\r\n")
-
+func calculateBaseFuel(parts []string) int {
 	var x int
 	for _, v := range parts {
 		intval, _ := strconv.Atoi(v)
@@ -33,9 +28,7 @@ func calculateBaseFuel(input string) int {
 	return x
 }
 
-func calculateAllFuel(input string) int {
-	parts := strings.Split(input, "\r\n")
-
+func calculateAllFuel(parts []string) int {
 	var total int
 	for _, v := range parts {
 		intval, err := strconv.Atoi(v)
