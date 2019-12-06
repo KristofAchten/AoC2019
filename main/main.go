@@ -8,11 +8,11 @@ import (
 func main() {
 	start := time.Now()
 
-	day1() // https://adventofcode.com/2019/day/1
+	/*day1() // https://adventofcode.com/2019/day/1
 	day2() // https://adventofcode.com/2019/day/2
 	day3() // https://adventofcode.com/2019/day/3
 	day4() // https://adventofcode.com/2019/day/4
-	day5() // https://adventofcode.com/2019/day/5
+	day5() // https://adventofcode.com/2019/day/5*/
 	day6() // https://adventofcode.com/2019/day/6
 
 	fmt.Println("**********************************************")

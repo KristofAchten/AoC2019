@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type Coords struct {
+type coords struct {
 	x int
 	y int
 }
@@ -24,14 +24,14 @@ func day3() {
 	fmt.Printf("DAY 3 STATS: Execution took %s\n\n", time.Since(start))
 }
 
-func traceWires(input []string) [][]Coords {
-	var coordSets [][]Coords
+func traceWires(input []string) [][]coords {
+	var coordSets [][]coords
 
 	for _, v := range input {
 		cmds := strings.Split(v, ",")
 
-		var visited []Coords
-		var curCoord = Coords{0, 0}
+		var visited []coords
+		var curCoord = coords{0, 0}
 
 		for _, sv := range cmds {
 			steps, _ := strconv.Atoi(sv[1:])
@@ -54,21 +54,21 @@ func traceWires(input []string) [][]Coords {
 	return coordSets
 }
 
-func visit(x int, y int, steps int, visited []Coords, curCoords Coords) (Coords, []Coords) {
+func visit(x int, y int, steps int, visited []coords, curCoords coords) (coords, []coords) {
 	curX := curCoords.x
 	curY := curCoords.y
 
 	for i := 0; i < steps; i++ {
-		cur := Coords{curX, curY}
+		cur := coords{curX, curY}
 		visited = append(visited, cur)
 
 		curX += x
 		curY += y
 	}
-	return Coords{curCoords.x + (steps * x), curCoords.y + (steps * y)}, visited
+	return coords{curCoords.x + (steps * x), curCoords.y + (steps * y)}, visited
 }
 
-func determineOverlapWithSmallestManhattanDistance(overlap []Coords) int {
+func determineOverlapWithSmallestManhattanDistance(overlap []coords) int {
 
 	var curBest = 9999999999
 	for _, v := range overlap {
@@ -95,8 +95,8 @@ func determineOverlapWithLeastSteps(totalSteps []int) int {
 Helper functions
 */
 
-func overlap(coordSets [][]Coords) ([]Coords, []int) {
-	var overlaps []Coords
+func overlap(coordSets [][]coords) ([]coords, []int) {
+	var overlaps []coords
 	var totalSteps []int
 
 	m := sliceToMap(coordSets[0])
@@ -112,8 +112,8 @@ func overlap(coordSets [][]Coords) ([]Coords, []int) {
 	return overlaps, totalSteps
 }
 
-func sliceToMap(set []Coords) map[Coords]int {
-	m := make(map[Coords]int)
+func sliceToMap(set []coords) map[coords]int {
+	m := make(map[coords]int)
 
 	for idx1, v1 := range set {
 		m[v1] = idx1
