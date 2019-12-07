@@ -16,8 +16,14 @@ func day4() {
 	start := time.Now()
 
 	candidates := getPwd()
-	fmt.Println("Day 4: solution one is " + strconv.Itoa(len(candidates)))
-	fmt.Println("Day 4: solution two is " + strconv.Itoa(len(atLeastOneDoubleWithoutSupergroup(candidates))))
+
+	res1 := len(candidates)
+	res2 := len(atLeastOneDoubleWithoutSupergroup(candidates))
+
+	fmt.Println("Day 4: solution one is " + strconv.Itoa(res1))
+	fmt.Println("Day 4: solution two is " + strconv.Itoa(res2))
+
+	confirmPuzzleResult(4, res1, res2)
 
 	fmt.Printf("DAY 4 STATS: Execution took %s\n\n", time.Since(start))
 }

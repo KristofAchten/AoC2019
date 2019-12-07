@@ -7,22 +7,42 @@ import (
 	"time"
 )
 
+type intcodeState struct {
+	program []int
+	ptr     int
+	input   []int
+}
+
 func day5() {
 	start := time.Now()
 
 	input := strings.Split(string(getPuzzleInput("input/day5.txt")), ",")
-	o1 := runAdvancedIntcode(stringSliceToIntSlice(input), []int{1})
-	o2 := runAdvancedIntcode(stringSliceToIntSlice(input), []int{5})
 
-	fmt.Println("Day 5: solution one is " + strconv.Itoa(o1[len(o1)-1]))
-	fmt.Println("Day 5: solution two is " + strconv.Itoa(o2[len(o2)-1]))
+	res1 := runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int{1}))
+	res2 := runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int{5}))
+
+	fmt.Println("Day 5: solution one is " + strconv.Itoa(res1))
+	fmt.Println("Day 5: solution two is " + strconv.Itoa(res2))
+
+	confirmPuzzleResult(5, res1, res2)
 
 	fmt.Printf("DAY 5 STATS: Execution took %s\n\n", time.Since(start))
 }
 
-func runAdvancedIntcode(code []int, input []int) []int {
-	var output []int
-	pointer := 0
+func runUntilHalt(state intcodeState, lastResult ...int) int {
+	result, halt, newState := runIntCode(state)
+	if halt {
+		return lastResult[0]
+	}
+	return runUntilHalt(newState, result)
+}
+
+func runIntCode(state intcodeState) (int, bool, intcodeState) {
+	var output int
+
+	code := state.program
+	pointer := state.ptr
+	input := state.input
 
 	for pointer < len(code) {
 
@@ -50,8 +70,9 @@ func runAdvancedIntcode(code []int, input []int) []int {
 			pointer += 2
 		case 4: // Store output
 			res := getValsAccordingToModes(modes, code, code[pointer+1])
-			output = append(output, res[0])
+			output = res[0]
 			pointer += 2
+			return output, false, intcodeState{code, pointer, input}
 		case 5: // Jump if true (~0)
 			res := getValsAccordingToModes(modes, code, code[pointer+1], code[pointer+2])
 			if res[0] != 0 {
@@ -82,11 +103,13 @@ func runAdvancedIntcode(code []int, input []int) []int {
 				code[code[pointer+3]] = 0
 			}
 			pointer += 4
+		case 99: // Halt
+			return output, true, intcodeState{code, pointer, input}
 		default:
 			pointer = 99999999
 		}
 	}
-	return output
+	panic("Your intcode sucks.")
 }
 
 func getValsAccordingToModes(modes string, code []int, vals ...int) []int {
@@ -101,4 +124,12 @@ func getValsAccordingToModes(modes string, code []int, vals ...int) []int {
 		res = append(res, code[v])
 	}
 	return res
+}
+
+func createDefaultIntcodeState(code []int, input []int) intcodeState {
+	return intcodeState{
+		program: code,
+		ptr:     0,
+		input:   input,
+	}
 }

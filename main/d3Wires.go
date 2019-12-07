@@ -18,8 +18,13 @@ func day3() {
 	input := strings.Split(string(getPuzzleInput("input/day3.txt")), "\n")
 	overlap, allSteps := overlap(traceWires(input))
 
-	fmt.Println("Day 3: solution one is " + strconv.Itoa(determineOverlapWithSmallestManhattanDistance(overlap)))
-	fmt.Println("Day 3: solution two is " + strconv.Itoa(determineOverlapWithLeastSteps(allSteps)))
+	res1 := determineOverlapWithSmallestManhattanDistance(overlap)
+	res2 := determineOverlapWithLeastSteps(allSteps)
+
+	fmt.Println("Day 3: solution one is " + strconv.Itoa(res1))
+	fmt.Println("Day 3: solution two is " + strconv.Itoa(res2))
+
+	confirmPuzzleResult(3, res1, res2)
 
 	fmt.Printf("DAY 3 STATS: Execution took %s\n\n", time.Since(start))
 }
