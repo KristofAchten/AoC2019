@@ -91,10 +91,10 @@ func joinLayers(layers [][]string) []string {
 
 func nicePrint(layer []string) {
 	for i, v := range layer {
-		if v == "0" {
-			layer[i] = " "
-		} else {
+		if v == "1" {
 			layer[i] = "X"
+		} else {
+			layer[i] = " "
 		}
 	}
 
