@@ -100,3 +100,15 @@ func heapsAlgo(vals []int, curLen int, results *[][]int) {
 		}
 	}
 }
+
+/**
+Join all values of a slice of strings together
+*/
+func joinStringSlice(vals []string) string {
+	var str string
+	for _, v := range vals {
+		str += v
+	}
+
+	return str
+}
