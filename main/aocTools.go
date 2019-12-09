@@ -6,6 +6,11 @@ import (
 )
 
 /**
+Map bools to ints
+*/
+var b2i = map[bool]int64{false: 0, true: 1}
+
+/**
 Get the puzzle input from the file at a specified path
 */
 func getPuzzleInput(path string) []byte {

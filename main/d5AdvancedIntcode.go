@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+const DefaultCodeSize = 1200
+
 type intcodeState struct {
 	program      []int64
 	ptr          int64
@@ -42,47 +44,36 @@ func runUntilHalt(state intcodeState, lastResult ...int64) int64 {
 func runIntCode(state intcodeState) (int64, bool, intcodeState) {
 	var output int64
 
-	code := make([]int64, 5000)
+	code := make([]int64, DefaultCodeSize)
 	copy(code, state.program)
 
 	pointer := state.ptr
 	relativeBase := state.relativeBase
 	input := state.input
-	for pointer < int64(len(code)) {
 
+	for {
 		opcode := code[pointer] % 100
-
 		strval := strconv.Itoa(int(code[pointer]))
-		var modes = ""
 
+		var modes string
 		if len(strval) > 2 {
 			modes = strconv.Itoa(int(code[pointer]))[0:(len(strval) - 2)]
-		}
-
-		var offSet int64
-		if len(modes) > 2 && modes[len(modes)-3] == '2' {
-			offSet = relativeBase
 		}
 
 		switch opcode {
 		case 1: // Addition
 			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
-			code[code[pointer+3]+offSet] = res[0] + res[1]
+			code[code[pointer+3]+b2i[offSet(modes, 3)]*relativeBase] = res[0] + res[1]
 			pointer += 4
 		case 2: // Multiplication
 			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
-			code[code[pointer+3]+offSet] = res[0] * res[1]
+			code[code[pointer+3]+b2i[offSet(modes, 3)]*relativeBase] = res[0] * res[1]
 			pointer += 4
 		case 3: // Take input
-			if len(modes) > 0 && modes[len(modes)-1] == '2' {
-				offSet = relativeBase
-			} else {
-				offSet = 0
-			}
-			code[code[pointer+1]+offSet] = input[0]
+			code[code[pointer+1]+b2i[offSet(modes, 1)]*relativeBase] = input[0]
 			input = input[1:]
 			pointer += 2
-		case 4: // Store output
+		case 4: // Produce output
 			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1])
 			output = res[0]
 			pointer += 2
@@ -104,17 +95,17 @@ func runIntCode(state intcodeState) (int64, bool, intcodeState) {
 		case 7: // Less than
 			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
 			if res[0] < res[1] {
-				code[code[pointer+3]+offSet] = 1
+				code[code[pointer+3]+b2i[offSet(modes, 3)]*relativeBase] = 1
 			} else {
-				code[code[pointer+3]+offSet] = 0
+				code[code[pointer+3]+b2i[offSet(modes, 3)]*relativeBase] = 0
 			}
 			pointer += 4
 		case 8: // Equals
 			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
 			if res[0] == res[1] {
-				code[code[pointer+3]+offSet] = 1
+				code[code[pointer+3]+b2i[offSet(modes, 3)]*relativeBase] = 1
 			} else {
-				code[code[pointer+3]+offSet] = 0
+				code[code[pointer+3]+b2i[offSet(modes, 3)]*relativeBase] = 0
 			}
 			pointer += 4
 		case 9:
@@ -124,10 +115,13 @@ func runIntCode(state intcodeState) (int64, bool, intcodeState) {
 		case 99: // Halt
 			return output, true, intcodeState{code, pointer, relativeBase, input}
 		default:
-			pointer = 99999999
+			panic("Your intcode program uses unsupported opcodes!")
 		}
 	}
-	panic("Your intcode sucks.")
+}
+
+func offSet(modes string, val int) bool {
+	return len(modes) > (val-1) && modes[len(modes)-val] == '2'
 }
 
 func getValsAccordingToModes(modes string, relativeBase int64, code []int64, vals ...int64) []int64 {
@@ -136,14 +130,15 @@ func getValsAccordingToModes(modes string, relativeBase int64, code []int64, val
 		if len(modes) > i {
 			idx := len(modes) - 1 - i
 			switch modes[idx] {
-			case '1':
+			case '1': // Immediate mode
 				res = append(res, v)
 				continue
-			case '2':
+			case '2': // Relative mode
 				res = append(res, code[relativeBase+v])
 				continue
 			}
 		}
+		// Position mode (default)
 		res = append(res, code[v])
 	}
 	return res
