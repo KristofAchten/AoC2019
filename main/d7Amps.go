@@ -42,11 +42,11 @@ func findLargestOutputForAmpsWithFeedbackLoop(inputCode []string, possibleInputs
 		var lastOutput int
 		execCtr := 0
 		codePerAmp := []intcodeState{
-			{stringSliceToIntSlice(inputCode), 0, []int{v[0], 0}},
-			{stringSliceToIntSlice(inputCode), 0, []int{v[1]}},
-			{stringSliceToIntSlice(inputCode), 0, []int{v[2]}},
-			{stringSliceToIntSlice(inputCode), 0, []int{v[3]}},
-			{stringSliceToIntSlice(inputCode), 0, []int{v[4]}},
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[0], 0}),
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[1]}),
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[2]}),
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[3]}),
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[4]}),
 		}
 
 		for {
@@ -58,8 +58,8 @@ func findLargestOutputForAmpsWithFeedbackLoop(inputCode []string, possibleInputs
 			}
 
 			nextAmp := codePerAmp[(execCtr+1)%5]
-			codePerAmp[execCtr%5] = intcodeState{newState.program, newState.ptr, reverseIntSlice(newState.input)}
-			codePerAmp[(execCtr+1)%5] = intcodeState{nextAmp.program, nextAmp.ptr, append(nextAmp.input, output)}
+			codePerAmp[execCtr%5] = intcodeState{newState.program, newState.ptr, newState.relativeBase, reverseIntSlice(newState.input)}
+			codePerAmp[(execCtr+1)%5] = intcodeState{nextAmp.program, nextAmp.ptr, newState.relativeBase, append(nextAmp.input, output)}
 
 			lastOutput = output
 			execCtr++

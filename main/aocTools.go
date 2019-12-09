@@ -112,3 +112,13 @@ func joinStringSlice(vals []string) string {
 
 	return str
 }
+
+/**
+Max of ints..........
+*/
+func maxInt(x, y int) int {
+	if x < y {
+		return y
+	}
+	return x
+}
