@@ -32,6 +32,7 @@ func day5() {
 
 func runUntilHalt(state intcodeState, lastResult ...int) int {
 	result, halt, newState := runIntCode(state)
+	fmt.Println(result)
 	if halt {
 		return lastResult[0]
 	}
@@ -61,17 +62,17 @@ func runIntCode(state intcodeState) (int, bool, intcodeState) {
 		case 1: // Addition
 			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
 			code = newCode
-			code = growCode(code, code[pointer+3]-len(code))
+			code = growCode(code, code[pointer+3]-len(code)+1)
 			code[code[pointer+3]] = res[0] + res[1]
 			pointer += 4
 		case 2: // Multiplication
 			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
 			code = newCode
-			code = growCode(code, code[pointer+3]-len(code))
+			code = growCode(code, code[pointer+3]-len(code)+1)
 			code[code[pointer+3]] = res[0] * res[1]
 			pointer += 4
 		case 3: // Take input
-			code = growCode(code, code[pointer+1]-len(code))
+			code = growCode(code, code[pointer+1]-len(code)+1)
 			code[code[pointer+1]] = input[0]
 			input = input[1:]
 			pointer += 2
@@ -100,7 +101,7 @@ func runIntCode(state intcodeState) (int, bool, intcodeState) {
 		case 7: // Less than
 			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2], code[pointer+3])
 			code = newCode
-			code = growCode(code, code[pointer+3]-len(code))
+			code = growCode(code, code[pointer+3]-len(code)+1)
 			if res[0] < res[1] {
 				code[code[pointer+3]] = 1
 			} else {
@@ -110,7 +111,7 @@ func runIntCode(state intcodeState) (int, bool, intcodeState) {
 		case 8: // Equals
 			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2], code[pointer+3])
 			code = newCode
-			code = growCode(code, code[pointer+3]-len(code))
+			code = growCode(code, code[pointer+3]-len(code)+1)
 			if res[0] == res[1] {
 				code[code[pointer+3]] = 1
 			} else {
@@ -141,15 +142,15 @@ func getValsAccordingToModes(modes string, relativeBase int, code []int, vals ..
 				res = append(res, v)
 				continue
 			case '2':
-				if relativeBase > len(code) {
-					code = growCode(code, relativeBase-len(code))
+				if relativeBase >= len(code) {
+					code = growCode(code, relativeBase-len(code)+1)
 				}
 				res = append(res, code[relativeBase])
 				continue
 			}
 		}
-		if v > len(code) {
-			code = growCode(code, v-len(code))
+		if v >= len(code) {
+			code = growCode(code, v-len(code)+1)
 		}
 		res = append(res, code[v])
 	}
@@ -169,14 +170,12 @@ func growCode(code []int, with int) []int {
 	if with <= 0 {
 		return code
 	}
-	println(len(code), with)
-	newCode := make([]int, len(code)+with)
+	newCode := make([]int, len(code))
 	copy(newCode, code)
 
 	for i := 0; i < with; i++ {
 		newCode = append(newCode, 0)
 	}
 
-	println(len(newCode))
 	return newCode
 }
