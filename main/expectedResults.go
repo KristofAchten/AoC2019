@@ -21,6 +21,7 @@ func confirmPuzzleResult(day int, resultP1 int, resultP2 int) {
 		{147807, 229},
 		{567045, 39016654},
 		{1965, 9223372036854775807},
+		{4288078517, 69256},
 	}
 
 	expectedResults := results[day-1]

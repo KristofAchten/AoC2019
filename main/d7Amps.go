@@ -11,24 +11,24 @@ func day7() {
 	start := time.Now()
 	input := strings.Split(string(getPuzzleInput("input/day7.txt")), ",")
 
-	res1 := findLargestOutputForAmps(input, permutations([]int{0, 1, 2, 3, 4}))
-	res2 := findLargestOutputForAmpsWithFeedbackLoop(input, permutations([]int{5, 6, 7, 8, 9}))
+	res1 := findLargestOutputForAmps(input, permutations([]int64{0, 1, 2, 3, 4}))
+	res2 := findLargestOutputForAmpsWithFeedbackLoop(input, permutations([]int64{5, 6, 7, 8, 9}))
 
-	fmt.Println("Day 7: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 7: solution two is " + strconv.Itoa(res2))
+	fmt.Println("Day 7: solution one is " + strconv.Itoa(int(res1)))
+	fmt.Println("Day 7: solution two is " + strconv.Itoa(int(res2)))
 
-	confirmPuzzleResult(7, res1, res2)
+	confirmPuzzleResult(7, int(res1), int(res2))
 
 	fmt.Printf("DAY 7 STATS: Execution took %s\n\n", time.Since(start))
 }
 
-func findLargestOutputForAmps(input []string, possibleInputs [][]int) int {
-	var allOutputs []int
+func findLargestOutputForAmps(input []string, possibleInputs [][]int64) int64 {
+	var allOutputs []int64
 
 	for _, v := range possibleInputs {
-		var nextInput int
+		var nextInput int64
 		for _, v2 := range v {
-			nextInput = runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int{v2, nextInput}))
+			nextInput = runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int64{int64(v2), nextInput}))
 		}
 		allOutputs = append(allOutputs, nextInput)
 	}
@@ -36,17 +36,17 @@ func findLargestOutputForAmps(input []string, possibleInputs [][]int) int {
 	return max(allOutputs)
 }
 
-func findLargestOutputForAmpsWithFeedbackLoop(inputCode []string, possibleInputs [][]int) int {
-	var allOutputs []int
+func findLargestOutputForAmpsWithFeedbackLoop(inputCode []string, possibleInputs [][]int64) int64 {
+	var allOutputs []int64
 	for _, v := range possibleInputs {
-		var lastOutput int
+		var lastOutput int64
 		execCtr := 0
 		codePerAmp := []intcodeState{
-			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[0], 0}),
-			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[1]}),
-			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[2]}),
-			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[3]}),
-			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int{v[4]}),
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int64{v[0], 0}),
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int64{v[1]}),
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int64{v[2]}),
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int64{v[3]}),
+			createDefaultIntcodeState(stringSliceToIntSlice(inputCode), []int64{v[4]}),
 		}
 
 		for {

@@ -49,7 +49,7 @@ func generateIntRange(f int, t int) []int {
 Reverse a slice of integers and return.
 Brought to you by my functional programming nightmares
 */
-func reverseIntSlice(input []int) []int {
+func reverseIntSlice(input []int64) []int64 {
 	if len(input) == 0 {
 		return input
 	}
@@ -59,8 +59,9 @@ func reverseIntSlice(input []int) []int {
 /**
 Return the max value of a slice of positive integers
 */
-func max(input []int) int {
-	max := 0
+func max(input []int64) int64 {
+	var max int64
+	max = 0
 	for _, v := range input {
 		if v > max {
 			max = v
@@ -74,16 +75,16 @@ func max(input []int) int {
 Return all permutations of a given int slice. Based on Heap's algorithm:
 https://en.wikipedia.org/wiki/Heap%27s_algorithm#Details_of_the_algorithm
 */
-func permutations(vals []int) [][]int {
-	var allPermutations [][]int
+func permutations(vals []int64) [][]int64 {
+	var allPermutations [][]int64
 
 	heapsAlgo(vals, len(vals), &allPermutations)
 	return allPermutations
 }
 
-func heapsAlgo(vals []int, curLen int, results *[][]int) {
+func heapsAlgo(vals []int64, curLen int, results *[][]int64) {
 	if curLen == 1 {
-		result := make([]int, len(vals))
+		result := make([]int64, len(vals))
 		copy(result, vals)
 
 		*results = append(*results, result)
@@ -111,14 +112,4 @@ func joinStringSlice(vals []string) string {
 	}
 
 	return str
-}
-
-/**
-Max of ints..........
-*/
-func maxInt(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
 }

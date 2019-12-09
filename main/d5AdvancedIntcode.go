@@ -8,10 +8,10 @@ import (
 )
 
 type intcodeState struct {
-	program      []int
-	ptr          int
-	relativeBase int
-	input        []int
+	program      []int64
+	ptr          int64
+	relativeBase int64
+	input        []int64
 }
 
 func day5() {
@@ -19,108 +19,106 @@ func day5() {
 
 	input := strings.Split(string(getPuzzleInput("input/day5.txt")), ",")
 
-	res1 := runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int{1}))
-	res2 := runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int{5}))
+	res1 := runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int64{1}))
+	res2 := runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int64{5}))
 
-	fmt.Println("Day 5: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 5: solution two is " + strconv.Itoa(res2))
+	fmt.Println("Day 5: solution one is " + strconv.Itoa(int(res1)))
+	fmt.Println("Day 5: solution two is " + strconv.Itoa(int(res2)))
 
-	confirmPuzzleResult(5, res1, res2)
+	confirmPuzzleResult(5, int(res1), int(res2))
 
 	fmt.Printf("DAY 5 STATS: Execution took %s\n\n", time.Since(start))
 }
 
-func runUntilHalt(state intcodeState, lastResult ...int) int {
+func runUntilHalt(state intcodeState, lastResult ...int64) int64 {
 	result, halt, newState := runIntCode(state)
-	fmt.Println(result)
 	if halt {
 		return lastResult[0]
 	}
+
 	return runUntilHalt(newState, result)
 }
 
-func runIntCode(state intcodeState) (int, bool, intcodeState) {
-	var output int
+func runIntCode(state intcodeState) (int64, bool, intcodeState) {
+	var output int64
 
-	code := state.program
+	code := make([]int64, 5000)
+	copy(code, state.program)
+
 	pointer := state.ptr
 	relativeBase := state.relativeBase
 	input := state.input
-
-	for pointer < len(code) {
+	for pointer < int64(len(code)) {
 
 		opcode := code[pointer] % 100
 
-		strval := strconv.Itoa(code[pointer])
+		strval := strconv.Itoa(int(code[pointer]))
 		var modes = ""
 
 		if len(strval) > 2 {
-			modes = strconv.Itoa(code[pointer])[0:(len(strval) - 2)]
+			modes = strconv.Itoa(int(code[pointer]))[0:(len(strval) - 2)]
+		}
+
+		var offSet int64
+		if len(modes) > 2 && modes[len(modes)-3] == '2' {
+			offSet = relativeBase
 		}
 
 		switch opcode {
 		case 1: // Addition
-			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
-			code = newCode
-			code = growCode(code, code[pointer+3]-len(code)+1)
-			code[code[pointer+3]] = res[0] + res[1]
+			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
+			code[code[pointer+3]+offSet] = res[0] + res[1]
 			pointer += 4
 		case 2: // Multiplication
-			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
-			code = newCode
-			code = growCode(code, code[pointer+3]-len(code)+1)
-			code[code[pointer+3]] = res[0] * res[1]
+			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
+			code[code[pointer+3]+offSet] = res[0] * res[1]
 			pointer += 4
 		case 3: // Take input
-			code = growCode(code, code[pointer+1]-len(code)+1)
-			code[code[pointer+1]] = input[0]
+			if len(modes) > 0 && modes[len(modes)-1] == '2' {
+				offSet = relativeBase
+			} else {
+				offSet = 0
+			}
+			code[code[pointer+1]+offSet] = input[0]
 			input = input[1:]
 			pointer += 2
 		case 4: // Store output
-			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1])
-			code = newCode
+			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1])
 			output = res[0]
 			pointer += 2
 			return output, false, intcodeState{code, pointer, relativeBase, input}
 		case 5: // Jump if true (~0)
-			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
-			code = newCode
+			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
 			if res[0] != 0 {
 				pointer = res[1]
 			} else {
 				pointer += 3
 			}
 		case 6: // Jump if false (=0)
-			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
-			code = newCode
+			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
 			if res[0] == 0 {
 				pointer = res[1]
 			} else {
 				pointer += 3
 			}
 		case 7: // Less than
-			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2], code[pointer+3])
-			code = newCode
-			code = growCode(code, code[pointer+3]-len(code)+1)
+			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
 			if res[0] < res[1] {
-				code[code[pointer+3]] = 1
+				code[code[pointer+3]+offSet] = 1
 			} else {
-				code[code[pointer+3]] = 0
+				code[code[pointer+3]+offSet] = 0
 			}
 			pointer += 4
 		case 8: // Equals
-			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2], code[pointer+3])
-			code = newCode
-			code = growCode(code, code[pointer+3]-len(code)+1)
+			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1], code[pointer+2])
 			if res[0] == res[1] {
-				code[code[pointer+3]] = 1
+				code[code[pointer+3]+offSet] = 1
 			} else {
-				code[code[pointer+3]] = 0
+				code[code[pointer+3]+offSet] = 0
 			}
 			pointer += 4
 		case 9:
-			res, newCode := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1])
-			code = newCode
+			res := getValsAccordingToModes(modes, relativeBase, code, code[pointer+1])
 			relativeBase += res[0]
 			pointer += 2
 		case 99: // Halt
@@ -132,8 +130,8 @@ func runIntCode(state intcodeState) (int, bool, intcodeState) {
 	panic("Your intcode sucks.")
 }
 
-func getValsAccordingToModes(modes string, relativeBase int, code []int, vals ...int) ([]int, []int) {
-	var res []int
+func getValsAccordingToModes(modes string, relativeBase int64, code []int64, vals ...int64) []int64 {
+	var res []int64
 	for i, v := range vals {
 		if len(modes) > i {
 			idx := len(modes) - 1 - i
@@ -142,40 +140,20 @@ func getValsAccordingToModes(modes string, relativeBase int, code []int, vals ..
 				res = append(res, v)
 				continue
 			case '2':
-				if relativeBase >= len(code) {
-					code = growCode(code, relativeBase-len(code)+1)
-				}
-				res = append(res, code[relativeBase])
+				res = append(res, code[relativeBase+v])
 				continue
 			}
 		}
-		if v >= len(code) {
-			code = growCode(code, v-len(code)+1)
-		}
 		res = append(res, code[v])
 	}
-	return res, code
+	return res
 }
 
-func createDefaultIntcodeState(code []int, input []int) intcodeState {
+func createDefaultIntcodeState(code []int64, input []int64) intcodeState {
 	return intcodeState{
 		program:      code,
 		ptr:          0,
 		relativeBase: 0,
 		input:        input,
 	}
-}
-
-func growCode(code []int, with int) []int {
-	if with <= 0 {
-		return code
-	}
-	newCode := make([]int, len(code))
-	copy(newCode, code)
-
-	for i := 0; i < with; i++ {
-		newCode = append(newCode, 0)
-	}
-
-	return newCode
 }
