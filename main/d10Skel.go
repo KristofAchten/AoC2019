@@ -14,7 +14,7 @@ type vec struct {
 func day10() {
 	start := time.Now()
 
-	input := string(getPuzzleInput("input/test.txt"))
+	input := string(getPuzzleInput("input/day10.txt"))
 	parts := strings.Split(strings.Replace(input, "\r\n", "\n", -1), "\n")
 
 	coord, best := findBestAsteroidparts(parts)
@@ -57,7 +57,7 @@ func findBestAsteroidparts(parts []string) (coords, int) {
 				unitvecs = append(unitvecs, v)
 			}
 		}
-
+		fmt.Println(unitvecs)
 		if len(unitvecs) > curBest {
 			curBest = len(unitvecs)
 			curBestVec = a1
@@ -69,7 +69,8 @@ func findBestAsteroidparts(parts []string) (coords, int) {
 
 func normalize(v vec) vec {
 	nf := math.Sqrt(math.Pow(v.x, 2) + math.Pow(v.y, 2))
-	return vec{v.x / nf, v.y / nf}
+	tv := vec{v.x / nf, v.y / nf}
+	return vec{math.Round(tv.x*10000) / 10000, math.Round(tv.y*10000) / 10000}
 }
 
 func contains(vals []vec, val vec) bool {
