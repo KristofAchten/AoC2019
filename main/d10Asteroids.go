@@ -84,7 +84,7 @@ func findVaporizedAsteroid(center coords, info map[vec][]coords, target int) coo
 	sortedAngles := make(map[float64][]coords)
 
 	for k, v := range info {
-		// 1. Convert unit-vectors (= keys in info-map) to +Y-based angles and use this as index in a new map
+		// 1. Convert unit-vectors (= keys in info-map) to -Y-based angles and use this as index in a new map
 		angle := negYBasedAngle(k)
 		sortedAngles[angle] = v
 
