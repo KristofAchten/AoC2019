@@ -22,6 +22,7 @@ func confirmPuzzleResult(day int, resultP1 int, resultP2 int) {
 		{567045, 39016654},
 		{1965, 9223372036854775807},
 		{4288078517, 69256},
+		{247, 1919},
 	}
 
 	expectedResults := results[day-1]
@@ -31,7 +32,7 @@ func confirmPuzzleResult(day int, resultP1 int, resultP2 int) {
 			"Expected "+strconv.Itoa(expectedResults.part1)+", actual "+strconv.Itoa(resultP1))
 	}
 
-	if resultP1 != expectedResults.part1 {
+	if resultP2 != expectedResults.part2 {
 		messages = append(messages, "Day "+strconv.Itoa(day)+" part 2: unexpected results! "+
 			"Expected "+strconv.Itoa(expectedResults.part2)+", actual "+strconv.Itoa(resultP2))
 	}
