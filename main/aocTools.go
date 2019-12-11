@@ -118,3 +118,14 @@ func joinStringSlice(vals []string) string {
 
 	return str
 }
+
+/**
+Reverse a slice of strings and return.
+Again, brought to you by my functional programming nightmares
+*/
+func reverseStringSlice(input []string) []string {
+	if len(input) == 0 {
+		return input
+	}
+	return append(reverseStringSlice(input[1:]), input[0])
+}

@@ -97,7 +97,6 @@ func displayGrid(coords map[coords]int64) {
 
 	xSize := maxx + int(math.Abs(float64(minx)))
 	ySize := maxy + int(math.Abs(float64(miny)))
-	fmt.Println(xSize, ySize)
 
 	printmap := make(map[int][]string)
 	for y := 0; y <= ySize; y++ {
@@ -115,6 +114,6 @@ func displayGrid(coords map[coords]int64) {
 	}
 
 	for i := 0; i <= ySize; i++ {
-		fmt.Println(printmap[i])
+		fmt.Println(reverseStringSlice(printmap[i]))
 	}
 }
