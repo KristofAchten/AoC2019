@@ -13,10 +13,12 @@ func day11() {
 
 	input := stringSliceToIntSlice(strings.Split(string(getPuzzleInput("input/day11.txt")), ","))
 	res1 := len(runPaintBot(input, 0))
-	displayGrid(runPaintBot(input, 1))
 
 	fmt.Println("Day 11: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 11: solution two is " + "NOT IMPLEMENTED")
+	fmt.Println("Day 11: solution two is")
+	grid := displayGrid(runPaintBot(input, 1))
+
+	confirmPuzzleResult(11, res1, idi2ls(grid))
 
 	fmt.Printf("DAY 11 STATS: Execution took %s\n\n", time.Since(start))
 }
@@ -75,7 +77,7 @@ func turn(curDir vec, with int64) vec {
 	panic("Invalid input vector")
 }
 
-func displayGrid(coords map[coords]int64) {
+func displayGrid(coords map[coords]int64) map[int][]string {
 	var minx int
 	var miny int
 	var maxx int
@@ -116,4 +118,6 @@ func displayGrid(coords map[coords]int64) {
 	for i := 0; i <= ySize; i++ {
 		fmt.Println(reverseStringSlice(printmap[i]))
 	}
+
+	return printmap
 }
