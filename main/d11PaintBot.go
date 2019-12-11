@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"strconv"
 	"strings"
 	"time"
@@ -79,51 +78,66 @@ func turn(curDir vec, with int64) vec {
 	panic("Invalid input vector")
 }
 
-func displayGrid(coords map[coords]int64) {
+func displayGrid(coordinates map[coords]int64) {
 
-	minCoords, maxCoords := determineCorners(coords)
+	shiftedCoords, maxX, maxY := shiftArray(coordinates)
 	printFriendlyMap := make(map[int][]string)
 
-	// This isn't necessarily what I wanted but it works.
-	xSize := maxCoords.x + int(math.Abs(float64(minCoords.x)))
-	ySize := maxCoords.y + int(math.Abs(float64(minCoords.y)))
-
-	for y := 0; y <= ySize; y++ {
-		var valArray []string
-		for x := 0; x <= xSize; x++ {
-			valArray = append(valArray, " ")
+	for y := 0; y <= maxY; y++ {
+		var row []string
+		for x := 0; x <= maxX; x++ {
+			if v, ok := shiftedCoords[coords{x, y}]; ok && v == 1 {
+				row = append(row, "X")
+			} else {
+				row = append(row, " ")
+			}
 		}
-
-		printFriendlyMap[y] = valArray
+		printFriendlyMap[y] = row
 	}
 
-	for k, v := range coords {
-		if v == 1 {
-			printFriendlyMap[k.y][k.x+xSize] = "X"
-		}
-	}
-
-	for i := 0; i < ySize; i++ {
+	for i := 0; i < len(printFriendlyMap); i++ {
 		fmt.Println(reverseStringSlice(printFriendlyMap[i]))
 	}
 }
 
-func determineCorners(coordGrid map[coords]int64) (coords, coords) {
-	var minx, miny, maxx, maxy int
+func shiftArray(coordGrid map[coords]int64) (map[coords]int64, int, int) {
+	var minX, minY, maxX, maxY int
 
 	for k := range coordGrid {
-		if k.x < minx || minx == 0 {
-			minx = k.x
-		} else if k.x > maxx || maxx == 0 {
-			maxx = k.x
+		if k.x < minX {
+			minX = k.x
+		} else if k.x > maxX {
+			maxX = k.x
 		}
 
-		if k.y < miny || miny == 0 {
-			miny = k.y
-		} else if k.y > maxy || maxy == 0 {
-			maxy = k.y
+		if k.y < minY {
+			minY = k.y
+		} else if k.y > maxY {
+			maxY = k.y
 		}
 	}
 
-	return coords{minx, miny}, coords{maxx, maxy}
+	if minX < 0 {
+		maxX += abs(minX)
+	}
+
+	if minY < 0 {
+		maxX += abs(minY)
+	}
+
+	return shiftCoordinates(coordGrid, minX, minY), maxX, maxY
+}
+
+func shiftCoordinates(grid map[coords]int64, x int, y int) map[coords]int64 {
+	if x == 0 && y == 0 {
+		return grid
+	}
+
+	shiftedCoords := make(map[coords]int64)
+
+	for k, v := range grid {
+		shiftedCoords[coords{k.x + abs(x), k.y + abs(y)}] = v
+	}
+
+	return shiftedCoords
 }
