@@ -13,12 +13,13 @@ func day11() {
 
 	input := stringSliceToIntSlice(strings.Split(string(getPuzzleInput("input/day11.txt")), ","))
 	res1 := len(runPaintBot(input, 0))
+	res2 := runPaintBot(input, 1)
 
 	fmt.Println("Day 11: solution one is " + strconv.Itoa(res1))
 	fmt.Println("Day 11: solution two is")
-	grid := displayGrid(runPaintBot(input, 1))
+	displayGrid(res2)
 
-	confirmPuzzleResult(11, res1, idi2ls(grid))
+	confirmPuzzleResult(11, res1, len(res2))
 
 	fmt.Printf("DAY 11 STATS: Execution took %s\n\n", time.Since(start))
 }
@@ -30,6 +31,7 @@ func runPaintBot(code []int64, startWith int64) map[coords]int64 {
 	state := createDefaultIntcodeState(code, []int64{startWith})
 
 	for {
+		// Retrieve & update colour
 		output, halt, newState := runIntCode(state)
 
 		if halt {
@@ -38,16 +40,16 @@ func runPaintBot(code []int64, startWith int64) map[coords]int64 {
 
 		grid[curCoords] = output
 
-		sndOutput, sndHalt, sndNewState := runIntCode(newState)
-
-		if sndHalt {
-			break
-		}
+		// Retrieve & update direction
+		sndOutput, _, sndNewState := runIntCode(newState)
 
 		direction = turn(direction, sndOutput)
 		state = sndNewState
+
+		// Move one step
 		curCoords = coords{curCoords.x + int(direction.x), curCoords.y + int(direction.y)}
 
+		// Update the input for the next run (default = 0 = black)
 		if v, ok := grid[curCoords]; ok {
 			state.input = append(state.input, v)
 		} else {
@@ -77,47 +79,51 @@ func turn(curDir vec, with int64) vec {
 	panic("Invalid input vector")
 }
 
-func displayGrid(coords map[coords]int64) map[int][]string {
-	var minx int
-	var miny int
-	var maxx int
-	var maxy int
+func displayGrid(coords map[coords]int64) {
 
-	for k := range coords {
-		if k.x < minx {
-			minx = k.x
-		} else if k.x > maxx {
-			maxx = k.x
-		}
+	minCoords, maxCoords := determineCorners(coords)
+	printFriendlyMap := make(map[int][]string)
 
-		if k.y < miny {
-			miny = k.y
-		} else if k.y > maxy {
-			maxy = k.y
-		}
-	}
+	// This isn't necessarily what I wanted but it works.
+	xSize := maxCoords.x + int(math.Abs(float64(minCoords.x)))
+	ySize := maxCoords.y + int(math.Abs(float64(minCoords.y)))
 
-	xSize := maxx + int(math.Abs(float64(minx)))
-	ySize := maxy + int(math.Abs(float64(miny)))
-
-	printmap := make(map[int][]string)
 	for y := 0; y <= ySize; y++ {
 		var valArray []string
 		for x := 0; x <= xSize; x++ {
 			valArray = append(valArray, " ")
 		}
-		printmap[y] = valArray
+
+		printFriendlyMap[y] = valArray
 	}
 
 	for k, v := range coords {
 		if v == 1 {
-			printmap[k.y][k.x+xSize] = "X"
+			printFriendlyMap[k.y][k.x+xSize] = "X"
 		}
 	}
 
-	for i := 0; i <= ySize; i++ {
-		fmt.Println(reverseStringSlice(printmap[i]))
+	for i := 0; i < ySize; i++ {
+		fmt.Println(reverseStringSlice(printFriendlyMap[i]))
+	}
+}
+
+func determineCorners(coordGrid map[coords]int64) (coords, coords) {
+	var minx, miny, maxx, maxy int
+
+	for k := range coordGrid {
+		if k.x < minx || minx == 0 {
+			minx = k.x
+		} else if k.x > maxx || maxx == 0 {
+			maxx = k.x
+		}
+
+		if k.y < miny || miny == 0 {
+			miny = k.y
+		} else if k.y > maxy || maxy == 0 {
+			maxy = k.y
+		}
 	}
 
-	return printmap
+	return coords{minx, miny}, coords{maxx, maxy}
 }

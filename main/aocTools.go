@@ -129,16 +129,3 @@ func reverseStringSlice(input []string) []string {
 	}
 	return append(reverseStringSlice(input[1:]), input[0])
 }
-
-/**
-Value-a-fy a map with ints as indexes and a list of string as value
-*/
-func idi2ls(input map[int][]string) int {
-	var result int
-	for k, v := range input {
-		result += k
-		result += len(v)
-	}
-
-	return result
-}
