@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-const DefaultCodeSize = 1200
+const defaultCodeSize = 5000
 
 type intcodeState struct {
 	program      []int64
@@ -44,7 +44,7 @@ func runUntilHalt(state intcodeState, lastResult ...int64) int64 {
 func runIntCode(state intcodeState) (int64, bool, intcodeState) {
 	var output int64
 
-	code := make([]int64, DefaultCodeSize)
+	code := make([]int64, defaultCodeSize)
 	copy(code, state.program)
 
 	pointer := state.ptr
