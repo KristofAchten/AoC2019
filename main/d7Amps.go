@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -14,10 +13,7 @@ func day7() {
 	res1 := findLargestOutputForAmps(input, permutations([]int64{0, 1, 2, 3, 4}))
 	res2 := findLargestOutputForAmpsWithFeedbackLoop(input, permutations([]int64{5, 6, 7, 8, 9}))
 
-	fmt.Println("Day 7: solution one is " + strconv.Itoa(int(res1)))
-	fmt.Println("Day 7: solution two is " + strconv.Itoa(int(res2)))
-
-	confirmPuzzleResult(7, int(res1), int(res2))
+	printPuzzleResult(7, int(res1), int(res2))
 
 	fmt.Printf("DAY 7 STATS: Execution took %s\n\n", time.Since(start))
 }

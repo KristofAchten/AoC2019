@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -28,10 +27,7 @@ func day12() {
 	res1 := simulate(input, 1000)
 	res2 := findLoop(input)
 
-	fmt.Println("Day 12: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 12: solution two is " + strconv.Itoa(res2))
-
-	confirmPuzzleResult(12, res1, res2)
+	printPuzzleResult(12, res1, res2)
 
 	fmt.Printf("DAY 12 STATS: Execution took %s\n\n", time.Since(start))
 }

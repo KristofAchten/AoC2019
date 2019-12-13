@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -24,10 +23,7 @@ func day6() {
 	res1 := determineAllOrbits(pseudoTree)
 	res2 := shortestPath(pseudoTree, "YOU", "SAN") - 2
 
-	fmt.Println("Day 6: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 6: solution two is " + strconv.Itoa(res2))
-
-	confirmPuzzleResult(6, res1, res2)
+	printPuzzleResult(6, res1, res2)
 
 	fmt.Printf("DAY 6 STATS: Execution took %s\n\n", time.Since(start))
 }

@@ -24,10 +24,7 @@ func day5() {
 	res1 := runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int64{1}))
 	res2 := runUntilHalt(createDefaultIntcodeState(stringSliceToIntSlice(input), []int64{5}))
 
-	fmt.Println("Day 5: solution one is " + strconv.Itoa(int(res1)))
-	fmt.Println("Day 5: solution two is " + strconv.Itoa(int(res2)))
-
-	confirmPuzzleResult(5, int(res1), int(res2))
+	printPuzzleResult(5, int(res1), int(res2))
 
 	fmt.Printf("DAY 5 STATS: Execution took %s\n\n", time.Since(start))
 }

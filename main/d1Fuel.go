@@ -16,10 +16,7 @@ func day1() {
 	res1 := calculateBaseFuel(parts)
 	res2 := calculateAllFuel(parts)
 
-	fmt.Println("Day 1: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 1: solution two is " + strconv.Itoa(res2))
-
-	confirmPuzzleResult(1, res1, res2)
+	printPuzzleResult(1, res1, res2)
 
 	fmt.Printf("DAY 1 STATS: Execution took %s\n\n", time.Since(start))
 }

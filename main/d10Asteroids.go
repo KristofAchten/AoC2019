@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math"
 	"sort"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -23,10 +22,7 @@ func day10() {
 	vaporizedCoord := findVaporizedAsteroid(bestCoords, info, 200)
 	res2 := vaporizedCoord.x*100 + vaporizedCoord.y
 
-	fmt.Println("Day 10: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 10: solution two is " + strconv.Itoa(res2))
-
-	confirmPuzzleResult(10, res1, res2)
+	printPuzzleResult(10, res1, res2)
 
 	fmt.Printf("DAY 10 STATS: Execution took %s\n\n", time.Since(start))
 }

@@ -15,10 +15,7 @@ func day2() {
 	res1 := runBasicIntCode(stringSliceToIntSlice(input), 12, 2)
 	res2, _ := strconv.Atoi(getVerbAndNoun(stringSliceToIntSlice(input), 19690720))
 
-	fmt.Println("Day 2: solution one is " + strconv.Itoa(int(res1)))
-	fmt.Println("Day 2: solution two is " + strconv.Itoa(res2))
-
-	confirmPuzzleResult(2, int(res1), res2)
+	printPuzzleResult(2, int(res1), res2)
 
 	fmt.Printf("DAY 2 STATS: Execution took %s\n\n", time.Since(start))
 }

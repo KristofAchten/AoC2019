@@ -19,13 +19,15 @@ func day13() {
 
 	input := stringSliceToIntSlice(strings.Split(string(getPuzzleInput("input/day13.txt")), ","))
 
-	fmt.Println("Day 13: solution one is ", countBlocks(runGame(input)))
-	fmt.Println("Day 13: solution two is " + "NOT IMPLEMENTED")
+	res1 := countBlocks(runGame(input, false))
+	res2 := winGame(input)
+
+	printPuzzleResult(13, res1, int(res2))
 
 	fmt.Printf("DAY 13 STATS: Execution took %s\n\n", time.Since(start))
 }
 
-func runGame(code []int64) [][]string {
+func runGame(code []int64, print bool) [][]string {
 	world := make([][]string, 24)
 
 	for i := 0; i < 24; i++ {
@@ -47,8 +49,47 @@ func runGame(code []int64) [][]string {
 		world[y][x] = i2obj(v)
 	}
 
-	printWorld(world)
+	if print {
+		printWorld(world)
+	}
 	return world
+}
+
+func winGame(code []int64) int64 {
+	code[0] = 2
+	state := createDefaultIntcodeState(code, []int64{})
+
+	var score int64
+	var paddleXPos int64
+
+	for {
+		x, halt, newState := runIntCode(state)
+
+		if halt {
+			break
+		}
+
+		y, _, sndNewState := runIntCode(newState)
+		v, _, thrdNewState := runIntCode(sndNewState)
+		state = thrdNewState
+
+		var input int64 // Default input = 0
+
+		if x == -1 && y == 0 {
+			score = v
+		} else if i2obj(v) == paddle {
+			paddleXPos = x
+		} else if i2obj(v) == ball { // super advanced AI
+			if paddleXPos > x {
+				input = -1
+			} else if paddleXPos < x {
+				input = 1
+			}
+		}
+
+		state.input = []int64{input}
+	}
+	return score
 }
 
 func i2obj(i int64) string {
@@ -64,7 +105,7 @@ func i2obj(i int64) string {
 	case 4:
 		return ball
 	default:
-		panic("Invalid object")
+		panic("Invalid object identifier")
 	}
 }
 

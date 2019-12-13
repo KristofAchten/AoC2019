@@ -21,10 +21,7 @@ func day3() {
 	res1 := determineOverlapWithSmallestManhattanDistance(overlap)
 	res2 := determineOverlapWithLeastSteps(allSteps)
 
-	fmt.Println("Day 3: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 3: solution two is " + strconv.Itoa(res2))
-
-	confirmPuzzleResult(3, res1, res2)
+	printPuzzleResult(3, res1, res2)
 
 	fmt.Printf("DAY 3 STATS: Execution took %s\n\n", time.Since(start))
 }

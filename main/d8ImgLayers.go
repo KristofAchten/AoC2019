@@ -21,11 +21,8 @@ func day8() {
 	finalLayer := joinLayers(getLayers1D(input))
 	res2, _ := strconv.Atoi(joinStringSlice(finalLayer))
 
-	fmt.Println("Day 8: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 8: solution two is: ")
+	printPuzzleResult(8, res1, res2)
 	nicePrint(finalLayer)
-
-	confirmPuzzleResult(8, res1, res2)
 
 	fmt.Printf("DAY 8 STATS: Execution took %s\n\n", time.Since(start))
 }

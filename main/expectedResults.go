@@ -10,7 +10,11 @@ type resultSet struct {
 	part2 int
 }
 
-func confirmPuzzleResult(day int, resultP1 int, resultP2 int) {
+func printPuzzleResult(day int, resultP1 int, resultP2 int) {
+
+	fmt.Println("Day", day, "- solution one is", resultP1)
+	fmt.Println("Day", day, "- solution two is", resultP2)
+
 	var messages []string
 	results := []resultSet{
 		{3210097, 4812287},
@@ -25,8 +29,13 @@ func confirmPuzzleResult(day int, resultP1 int, resultP2 int) {
 		{247, 1919},
 		{1909, 249},
 		{11384, 452582583272768},
+		{462, 23981},
 	}
 
+	if day > len(results) {
+		fmt.Println("Not all solutions implemented. Could not confirm results!")
+		return
+	}
 	expectedResults := results[day-1]
 
 	if resultP1 != expectedResults.part1 {

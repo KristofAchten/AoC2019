@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -14,11 +13,8 @@ func day11() {
 	res1 := len(runPaintBot(input, 0))
 	res2 := runPaintBot(input, 1)
 
-	fmt.Println("Day 11: solution one is " + strconv.Itoa(res1))
-	fmt.Println("Day 11: solution two is")
+	printPuzzleResult(11, res1, len(res2))
 	displayGrid(res2)
-
-	confirmPuzzleResult(11, res1, len(res2))
 
 	fmt.Printf("DAY 11 STATS: Execution took %s\n\n", time.Since(start))
 }
