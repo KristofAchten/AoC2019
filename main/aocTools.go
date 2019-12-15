@@ -79,6 +79,17 @@ func max(input []int64) int64 {
 }
 
 /**
+Return the max value of a slice of positive integers
+*/
+func maxInt(one int, two int) int {
+	if one >= two {
+		return one
+	} else {
+		return two
+	}
+}
+
+/**
 Return all permutations of a given int slice. Based on Heap's algorithm:
 https://en.wikipedia.org/wiki/Heap%27s_algorithm#Details_of_the_algorithm
 */
