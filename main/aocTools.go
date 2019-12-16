@@ -155,10 +155,7 @@ func allTrue(input []bool) bool {
 	return true
 }
 
-/**
-The two methods below were gracefully copy/pasted from https://siongui.github.io/2017/06/03/go-find-lcm-by-gcd/
-*/
-// greatest common divisor (GCD) via Euclidean algorithm
+// GCD The two methods below were gracefully copy/pasted from https://siongui.github.io/2017/06/03/go-find-lcm-by-gcd/
 func GCD(a, b int) int {
 	for b != 0 {
 		t := b
@@ -168,7 +165,7 @@ func GCD(a, b int) int {
 	return a
 }
 
-// find Least Common Multiple (LCM) via GCD
+// LCM find Least Common Multiple (LCM) via GCD
 func LCM(a, b int, integers ...int) int {
 	result := a * b / GCD(a, b)
 
@@ -177,4 +174,12 @@ func LCM(a, b int, integers ...int) int {
 	}
 
 	return result
+}
+
+func Reverse(s string) string {
+	r := []rune(s)
+	for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {
+		r[i], r[j] = r[j], r[i]
+	}
+	return string(r)
 }
