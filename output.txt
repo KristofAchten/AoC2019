@@ -1,109 +1,142 @@
-decoding...
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-98
-99
+Day 1 - solution one is 3210097
+Day 1 - solution two is 4812287
+Test succesful: all results matched
+DAY 1 STATS: Execution took 997.8µs
+
+Day 2 - solution one is 8017076
+Day 2 - solution two is 3146
+Test succesful: all results matched
+DAY 2 STATS: Execution took 4.9869ms
+
+Day 3 - solution one is 280
+Day 3 - solution two is 10554
+Test succesful: all results matched
+DAY 3 STATS: Execution took 61.8627ms
+
+Day 4 - solution one is 1079
+Day 4 - solution two is 699
+Test succesful: all results matched
+DAY 4 STATS: Execution took 28.9182ms
+
+Day 5 - solution one is 9431221
+Day 5 - solution two is 1409363
+Test succesful: all results matched
+DAY 5 STATS: Execution took 973.1µs
+
+Day 6 - solution one is 147807
+Day 6 - solution two is 229
+Test succesful: all results matched
+DAY 6 STATS: Execution took 36.93ms
+
+Day 7 - solution one is 567045
+Day 7 - solution two is 39016654
+Test succesful: all results matched
+DAY 7 STATS: Execution took 321.1138ms
+
+Day 8 - solution one is 1965
+Day 8 - solution two is 9223372036854775807
+Test succesful: all results matched
+[  X X     X X X X   X     X       X X   X       X]
+[X     X         X   X   X           X   X       X]
+[X             X     X X             X     X   X  ]
+[X   X X     X       X   X           X       X    ]
+[X     X   X         X   X     X     X       X    ]
+[  X X X   X X X X   X     X     X X         X    ]
+DAY 8 STATS: Execution took 1.994ms
+
+Day 9 - solution one is 4288078517
+Day 9 - solution two is 69256
+Test succesful: all results matched
+DAY 9 STATS: Execution took 52.8851ms
+
+Day 10 - solution one is 247
+Day 10 - solution two is 1919
+Test succesful: all results matched
+DAY 10 STATS: Execution took 38.8962ms
+
+Day 11 - solution one is 1909
+Day 11 - solution two is 249
+Test succesful: all results matched
+[      X X   X     X   X X X X   X X X X   X     X   X     X   X X X     X     X      ]
+[        X   X     X   X         X         X   X     X     X   X     X   X     X      ]
+[        X   X     X   X X X     X X X     X X       X X X X   X     X   X X X X      ]
+[        X   X     X   X         X         X   X     X     X   X X X     X     X      ]
+[  X     X   X     X   X         X         X   X     X     X   X         X     X      ]
+[    X X       X X     X         X X X X   X     X   X     X   X         X     X      ]
+DAY 11 STATS: Execution took 129.6266ms
+
+Day 12 - solution one is 11384
+Day 12 - solution two is 452582583272768
+Test succesful: all results matched
+DAY 12 STATS: Execution took 26.9273ms
+
+Day 13 - solution one is 462
+Day 13 - solution two is 23981
+Test succesful: all results matched
+DAY 13 STATS: Execution took 593.3538ms
+
+Day 14 - solution one is 907302
+Day 14 - solution two is 1670299
+Test succesful: all results matched
+DAY 14 STATS: Execution took 2.9919ms
+
+The maze looks like this (@ = oxygen system, # = wall, X = starting point):
+[# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #]
+[#           #                   #               #           #               #   #]
+[#   # # #   #   # # #   # # #   #   #   # # # # #   #   # # #   #   # # #   #   #]
+[#   #       #       #   #           #   #           #           #       #   #   #]
+[#   #   #   # # #   #   #   # # # # #   #   # # # # # # # # # # # # #   #   #   #]
+[# @ #   #   #       #   #   #       #   #   #                   #       #   #   #]
+[# # #   #   #   # # #   # # #   #   # # #   # # # # #   #   # # #   # # #   #   #]
+[#       #   #       #           #       #           #   #       #       #       #]
+[#   # # # # # # #   # # # # # # # # #   # # # # #   # # # # #   # # #   # # #   #]
+[#   #                   #           #       #   #   #           #       #       #]
+[#   #   # # # # # # # # #   # # #   #   #   #   #   #   #   # # #   # # #   # # #]
+[#               #       #       #       #       #   #   #   #       #           #]
+[# # # # # # # # #   #   #   #   # # # # # # # # #   #   #   #   # # # # # # # # #]
+[#       #           #   #   #                       #   #   #                   #]
+[#   #   #   # # # # #   # # # # # # # # # # # # #   #   #   # # # # # # # # #   #]
+[#   #       #   #       #                       #   #   #                   #   #]
+[#   # # # # #   #   # # #   # # # # # # # # #   #   #   #   # # # # # # # # #   #]
+[#   #       #       #           #   #           #       #   #                   #]
+[#   #   #   #   # # # # # # #   #   #   # # # # # # # # #   #   # # #   # # # # #]
+[#       #   #               #   #   #                   #   #   #       #       #]
+[#   # # #   # # # # # # #   #   #   #   # # # # # # #   # # #   # # # # #   #   #]
+[#       #   #               #   #       #   #       #       #   #           #   #]
+[#   # # #   # # # # # # #   #   #   # # # X #   # # # # #   #   #   # # # # #   #]
+[#   #       #           #       #       #   #                   #   #       #   #]
+[# # #   # # #   # # #   # # # # # # #   #   # # # # # # # # # # #   #   # # #   #]
+[#       #       #   #               #   #                   #       #       #   #]
+[#   #   #   # # #   # # # # # # #   # # # # # # # # # # #   #   # # #   #   #   #]
+[#   #   #   #               #   #   #               #   #       #       #   #   #]
+[#   # # #   # # # # #   #   #   #   #   # # #   #   #   # # # # #   # # #   #   #]
+[#           #           #   #   #       #       #       #               #   #   #]
+[#   # # # # #   # # # # #   #   # # # # #   # # # # # # #   # # # # # # #   #   #]
+[#   #       #           #   #           #                   #       #       #   #]
+[#   #   #   #   # # #   #   # # # # #   # # # # # # # # # # # # #   #   # # #   #]
+[#       #   #   #       #       #           #                       #           #]
+[# # # # #   #   #   # # # # #   #   # # #   # # # # # # # # #   #   # # # # # # #]
+[#   #       #   #       #   #       #   #               #       #           #   #]
+[#   #   # # # # # # #   #   # # # # #   # # # # # # #   #   # # # # # # #   #   #]
+[#   #           #       #   #           #               #       #       #   #   #]
+[#   # # # # #   #   # # #   #   #   # # #   # # # # # # # # #   #   # # #   #   #]
+[#                   #           #                               #               #]
+[# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #]
+Day 15 - solution one is 412
+Day 15 - solution two is 418
+Test succesful: all results matched
+DAY 15 STATS: Execution took 25.9312ms
+
 Day 16 - solution one is 59281788
 Day 16 - solution two is 96062868
+Test succesful: all results matched
+DAY 16 STATS: Execution took 977.4782ms
+
+Day 17 - solution one is -1
+Day 17 - solution two is -1
 Not all solutions implemented. Could not confirm results!
-DAY 16 STATS: Execution took 17m48.2555848s
+DAY 17 STATS: Execution took 0s
 
 **********************************************
-ELAPSED TIME OVER ALL CHALLENGES: 17m48.2555848s 
+ELAPSED TIME OVER ALL CHALLENGES: 2.3058668s 
 **********************************************

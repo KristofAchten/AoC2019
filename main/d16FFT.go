@@ -40,24 +40,32 @@ func phaseResult(input string, iterations int) int {
 }
 
 func decodeSignal(input string, iterations int) int {
-	fmt.Println("decoding...")
 	input = strings.Repeat(input, 10000)
 	messOffset, _ := strconv.Atoi(input[0:7])
-	interestingBits := input[messOffset:]
+	interestingBits := toIntSlice(input[messOffset:])
 
 	for r := 0; r < iterations; r++ {
-		fmt.Println(r)
-		var newString string
-
 		var sum int
 		for i := len(interestingBits) - 1; i >= 0; i-- {
-			curVal, _ := strconv.Atoi(string(interestingBits[i]))
-			sum += curVal
-			stringval := strconv.Itoa(abs(sum) % 10)
-			newString += stringval
+			sum += interestingBits[i]
+			interestingBits[i] = sum % 10
 		}
-		interestingBits = Reverse(newString)
 	}
-	res, _ := strconv.Atoi(interestingBits[:8])
+
+	var finalResult string
+	for i := range interestingBits[:8] {
+		finalResult += strconv.Itoa(interestingBits[i])
+	}
+
+	res, _ := strconv.Atoi(finalResult)
 	return res
+}
+
+func toIntSlice(s string) []int {
+	var values []int
+	for i := range s {
+		v, _ := strconv.Atoi(string(s[i]))
+		values = append(values, v)
+	}
+	return values
 }
