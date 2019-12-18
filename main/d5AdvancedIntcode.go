@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-const defaultCodeSize = 5000
+const defaultCodeSize = 7000
 
 type intcodeState struct {
 	program      []int64

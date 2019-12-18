@@ -6,32 +6,32 @@ DAY 1 STATS: Execution took 997.8µs
 Day 2 - solution one is 8017076
 Day 2 - solution two is 3146
 Test succesful: all results matched
-DAY 2 STATS: Execution took 4.9869ms
+DAY 2 STATS: Execution took 9.659ms
 
 Day 3 - solution one is 280
 Day 3 - solution two is 10554
 Test succesful: all results matched
-DAY 3 STATS: Execution took 61.8627ms
+DAY 3 STATS: Execution took 60.7951ms
 
 Day 4 - solution one is 1079
 Day 4 - solution two is 699
 Test succesful: all results matched
-DAY 4 STATS: Execution took 28.9182ms
+DAY 4 STATS: Execution took 31.015ms
 
 Day 5 - solution one is 9431221
 Day 5 - solution two is 1409363
 Test succesful: all results matched
-DAY 5 STATS: Execution took 973.1µs
+DAY 5 STATS: Execution took 970µs
 
 Day 6 - solution one is 147807
 Day 6 - solution two is 229
 Test succesful: all results matched
-DAY 6 STATS: Execution took 36.93ms
+DAY 6 STATS: Execution took 34.9067ms
 
 Day 7 - solution one is 567045
 Day 7 - solution two is 39016654
 Test succesful: all results matched
-DAY 7 STATS: Execution took 321.1138ms
+DAY 7 STATS: Execution took 427.4647ms
 
 Day 8 - solution one is 1965
 Day 8 - solution two is 9223372036854775807
@@ -42,17 +42,17 @@ Test succesful: all results matched
 [X   X X     X       X   X           X       X    ]
 [X     X   X         X   X     X     X       X    ]
 [  X X X   X X X X   X     X     X X         X    ]
-DAY 8 STATS: Execution took 1.994ms
+DAY 8 STATS: Execution took 981.3µs
 
 Day 9 - solution one is 4288078517
 Day 9 - solution two is 69256
 Test succesful: all results matched
-DAY 9 STATS: Execution took 52.8851ms
+DAY 9 STATS: Execution took 53.8789ms
 
 Day 10 - solution one is 247
 Day 10 - solution two is 1919
 Test succesful: all results matched
-DAY 10 STATS: Execution took 38.8962ms
+DAY 10 STATS: Execution took 39.8702ms
 
 Day 11 - solution one is 1909
 Day 11 - solution two is 249
@@ -63,22 +63,22 @@ Test succesful: all results matched
 [        X   X     X   X         X         X   X     X     X   X X X     X     X      ]
 [  X     X   X     X   X         X         X   X     X     X   X         X     X      ]
 [    X X       X X     X         X X X X   X     X   X     X   X         X     X      ]
-DAY 11 STATS: Execution took 129.6266ms
+DAY 11 STATS: Execution took 170.5442ms
 
 Day 12 - solution one is 11384
 Day 12 - solution two is 452582583272768
 Test succesful: all results matched
-DAY 12 STATS: Execution took 26.9273ms
+DAY 12 STATS: Execution took 27.925ms
 
 Day 13 - solution one is 462
 Day 13 - solution two is 23981
 Test succesful: all results matched
-DAY 13 STATS: Execution took 593.3538ms
+DAY 13 STATS: Execution took 783.3119ms
 
 Day 14 - solution one is 907302
 Day 14 - solution two is 1670299
 Test succesful: all results matched
-DAY 14 STATS: Execution took 2.9919ms
+DAY 14 STATS: Execution took 3.0197ms
 
 The maze looks like this (@ = oxygen system, # = wall, X = starting point):
 [# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #]
@@ -125,18 +125,54 @@ The maze looks like this (@ = oxygen system, # = wall, X = starting point):
 Day 15 - solution one is 412
 Day 15 - solution two is 418
 Test succesful: all results matched
-DAY 15 STATS: Execution took 25.9312ms
+DAY 15 STATS: Execution took 39.8655ms
 
 Day 16 - solution one is 59281788
 Day 16 - solution two is 96062868
 Test succesful: all results matched
-DAY 16 STATS: Execution took 977.4782ms
+DAY 16 STATS: Execution took 1.015802s
 
-Day 17 - solution one is -1
-Day 17 - solution two is -1
-Not all solutions implemented. Could not confirm results!
-DAY 17 STATS: Execution took 0s
+The scaffolding looks like this:
+..........####^..............................
+..........#..................................
+..........#..................................
+..........#..................................
+..........#######............................
+................#............................
+................#.......#############........
+................#.......#...........#........
+#######.........#.......#...........#........
+#.....#.........#.......#...........#........
+#.....#.........#.#####.#.....#########......
+#.....#.........#.#...#.#.....#.....#.#......
+#.....#.......###########.###########.#......
+#.....#.......#.#.#...#...#...#.......#......
+#.....#.......#.#######...#...#.......#......
+#.....#.......#...#.......#...#.......#......
+#.....#.###########.###########.......#......
+#.....#.#.....#.....#.....#...........#......
+#.....#########.....#.....#...........#......
+#.......#...........#.....#...........#......
+#######.#...........#.....#######.....#######
+......#.#...........#...........#...........#
+......#.#############...........#...........#
+......#.........................#...........#
+......#.........................#...........#
+......#.........................#...........#
+......#.........................#...........#
+......#.........................#...........#
+......#.........................#.###########
+......#.........................#.#..........
+......#######...................#######......
+..................................#...#......
+..................................#...#......
+..................................#...#......
+..................................#####......
+Day 17 - solution one is 3448
+Day 17 - solution two is 762405
+Test succesful: all results matched
+DAY 17 STATS: Execution took 82.4772ms
 
 **********************************************
-ELAPSED TIME OVER ALL CHALLENGES: 2.3058668s 
+ELAPSED TIME OVER ALL CHALLENGES: 2.7834842s 
 **********************************************
