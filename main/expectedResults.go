@@ -34,6 +34,8 @@ func printPuzzleResult(day int, resultP1 int, resultP2 int) {
 		{412, 418},
 		{59281788, 96062868},
 		{3448, 762405},
+		{notImplemented, notImplemented},
+		{110, 17302065},
 	}
 
 	if day > len(results) {
