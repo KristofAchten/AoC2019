@@ -34,6 +34,7 @@ func main() {
 	day17() // https://adventofcode.com/2019/day/17
 	//day18() // https://adventofcode.com/2019/day/18 // Nope, I'm not solving a TSP problem for my own sanity.
 	day19() // https://adventofcode.com/2019/day/19
+	day20() // https://adventofcode.com/2019/day/20
 
 	fmt.Println("**********************************************")
 	fmt.Printf("ELAPSED TIME OVER ALL CHALLENGES: %s \n", time.Since(start))
