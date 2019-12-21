@@ -15,7 +15,7 @@ func main() {
 
 	start := time.Now()
 
-	/*day1()  // https://adventofcode.com/2019/day/1
+	day1()  // https://adventofcode.com/2019/day/1
 	day2()  // https://adventofcode.com/2019/day/2
 	day3()  // https://adventofcode.com/2019/day/3
 	day4()  // https://adventofcode.com/2019/day/4
@@ -32,9 +32,10 @@ func main() {
 	day15() // https://adventofcode.com/2019/day/15
 	day16() // https://adventofcode.com/2019/day/16
 	day17() // https://adventofcode.com/2019/day/17
-	//day18() // https://adventofcode.com/2019/day/18 // Nope, I'm not solving a TSP problem for my own sanity.
-	day19() // https://adventofcode.com/2019/day/19*/
-	day20() // https://adventofcode.com/2019/day/20
+	//day18() // https://adventofcode.com/2019/day/18 // Nope, I'm not solving a TSP for my own sanity.
+	day19() // https://adventofcode.com/2019/day/19
+	/*day20() // https://adventofcode.com/2019/day/20*/
+	day21() // https://adventofcode.com/2019/day/21
 
 	fmt.Println("**********************************************")
 	fmt.Printf("ELAPSED TIME OVER ALL CHALLENGES: %s \n", time.Since(start))
