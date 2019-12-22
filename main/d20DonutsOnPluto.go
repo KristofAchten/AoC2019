@@ -16,14 +16,9 @@ type stepsPair struct {
 	s int
 }
 
-type sdPair struct {
-	sp stepsPair
-	d  int
-}
-
-type depthPair struct {
-	c coords
-	d int
+type stepsPair3D struct {
+	c coord3D
+	s int
 }
 
 type mazeStep struct {
@@ -36,7 +31,7 @@ func day20() {
 	donutPairs = make(map[string][]mazeStep)
 	coordToID = make(map[coords]string)
 
-	input := string(getPuzzleInput("/input/test.txt"))
+	input := string(getPuzzleInput("/input/day20.txt"))
 	parts := strings.Split(strings.Replace(input, "\r\n", "\n", -1), "\n")
 	parseInput(parts)
 	fmt.Println("This is what the maze looks like: ")
@@ -76,9 +71,6 @@ func searchRoute() int {
 					tp = c.c
 				}
 			}
-			if visited[tp] {
-				continue
-			}
 			queue = append(queue, stepsPair{tp, val.s + 1})
 		}
 
@@ -100,46 +92,51 @@ func searchRoute() int {
 }
 
 func searchRouteWithDepth() int {
-	var queue []sdPair
-	goal := donutPairs["ZZ"][0]
-	queue = append(queue, sdPair{stepsPair{donutPairs["AA"][0].c, 0}, 0})
-	visitedInDonut := make(map[depthPair]bool)
+	var queue []stepsPair3D
+	goal := coord3D{donutPairs["ZZ"][0].c.x, donutPairs["ZZ"][0].c.y, 0}
+	queue = append(queue, stepsPair3D{coord3D{donutPairs["AA"][0].c.x, donutPairs["AA"][0].c.y, 0}, 0})
+	visitedInDonut := make(map[coord3D]bool)
 
 	for len(queue) > 0 {
 		val := queue[0]
-		visitedInDonut[depthPair{val.sp.c, val.d}] = true
 		queue = queue[1:]
 
-		if val.sp.c == goal.c && val.d == 0 {
-			return val.sp.s
+		if val.c == goal {
+			return val.s
 		}
 
-		id, ok := coordToID[val.sp.c]
-		if ok && id != "AA" && id != "ZZ" {
+		coords2D := coords{val.c.x, val.c.y}
+		id, ok := coordToID[coords2D]
+		if ok && id != "AA" && id != "ZZ" && !visitedInDonut[val.c] {
 			var tp mazeStep
+			var dx int
 			for _, c := range donutPairs[id] {
-				if c.c != val.sp.c {
+				if c.c != coords2D {
 					tp = c
+				} else {
+					dx = c.i
 				}
 			}
-			if visited[tp.c] {
-				continue
-			}
-			queue = append(queue, sdPair{stepsPair{tp.c, val.sp.s + 1}, val.d + tp.i})
-		}
 
-		neighbours := []coords{
-			{val.sp.c.x - 1, val.sp.c.y},
-			{val.sp.c.x + 1, val.sp.c.y},
-			{val.sp.c.x, val.sp.c.y - 1},
-			{val.sp.c.x, val.sp.c.y + 1},
+			if val.c.z != 0 || dx != -1 {
+				newCoord3d := coord3D{tp.c.x, tp.c.y, val.c.z + dx}
+				queue = append(queue, stepsPair3D{newCoord3d, val.s + 1})
+			}
+		}
+		visitedInDonut[val.c] = true
+
+		neighbours := []coord3D{
+			{val.c.x - 1, val.c.y, val.c.z},
+			{val.c.x + 1, val.c.y, val.c.z},
+			{val.c.x, val.c.y - 1, val.c.z},
+			{val.c.x, val.c.y + 1, val.c.z},
 		}
 
 		for _, v := range neighbours {
-			if donutMaze[v.y][v.x] != "." || visitedInDonut[depthPair{v, val.d}] {
+			if donutMaze[v.y][v.x] != "." || visitedInDonut[v] {
 				continue
 			}
-			queue = append(queue, sdPair{stepsPair{v, val.sp.s + 1}, val.d})
+			queue = append(queue, stepsPair3D{v, val.s + 1})
 		}
 	}
 	panic("Couldn't find any route to ZZ")
@@ -173,9 +170,9 @@ func parseInput(input []string) {
 					strVal := string(up2) + string(up)
 					var i int
 					if y < 5 {
-						i = 1
-					} else {
 						i = -1
+					} else {
+						i = 1
 					}
 					donutPairs[strVal] = append(donutPairs[strVal], mazeStep{coords{x, y}, i})
 					coordToID[coords{x, y}] = strVal
@@ -185,9 +182,9 @@ func parseInput(input []string) {
 					strVal := string(down) + string(down2)
 					var i int
 					if y > height-5 {
-						i = 1
-					} else {
 						i = -1
+					} else {
+						i = 1
 					}
 					donutPairs[strVal] = append(donutPairs[strVal], mazeStep{coords{x, y}, i})
 					coordToID[coords{x, y}] = strVal
@@ -197,9 +194,9 @@ func parseInput(input []string) {
 					strVal := string(left2) + string(left)
 					var i int
 					if x < 5 {
-						i = 1
-					} else {
 						i = -1
+					} else {
+						i = 1
 					}
 					donutPairs[strVal] = append(donutPairs[strVal], mazeStep{coords{x, y}, i})
 					coordToID[coords{x, y}] = strVal
@@ -209,9 +206,9 @@ func parseInput(input []string) {
 					strVal := string(right) + string(right2)
 					var i int
 					if x > width-5 {
-						i = 1
+						i = -1
 					} else {
-						i = +1
+						i = 1
 					}
 					donutPairs[strVal] = append(donutPairs[strVal], mazeStep{coords{x, y}, i})
 					coordToID[coords{x, y}] = strVal

@@ -34,7 +34,7 @@ func main() {
 	day17() // https://adventofcode.com/2019/day/17
 	//day18() // https://adventofcode.com/2019/day/18 // Nope, I'm not solving a TSP for my own sanity.
 	day19() // https://adventofcode.com/2019/day/19
-	/*day20() // https://adventofcode.com/2019/day/20*/
+	day20() // https://adventofcode.com/2019/day/20
 	day21() // https://adventofcode.com/2019/day/21
 
 	fmt.Println("**********************************************")
