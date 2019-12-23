@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/ioutil"
+	"math/big"
 	"os"
 )
 
@@ -174,4 +175,17 @@ func LCM(a, b int, integers ...int) int {
 	}
 
 	return result
+}
+
+// Big number shizzle
+func modInv(v *big.Int, size *big.Int) *big.Int {
+	return bigDummy().Exp(bigDummy().Sub(bi(1), v), bigDummy().Sub(size, bi(2)), size)
+}
+
+func bigDummy() *big.Int {
+	return big.NewInt(0)
+}
+
+func bi(i int) *big.Int {
+	return big.NewInt(int64(i))
 }

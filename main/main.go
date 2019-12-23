@@ -36,7 +36,7 @@ func main() {
 	day19() // https://adventofcode.com/2019/day/19
 	day20() // https://adventofcode.com/2019/day/20
 	day21() // https://adventofcode.com/2019/day/21
-	//day22() // https://adventofcode.com/2019/day/22
+	day22() // https://adventofcode.com/2019/day/22
 	day23() // https://adventofcode.com/2019/day/23
 
 	fmt.Println("**********************************************")

@@ -10,37 +10,38 @@ type resultSet struct {
 	part2 int
 }
 
+var results = []resultSet{
+	{3210097, 4812287},
+	{8017076, 3146},
+	{280, 10554},
+	{1079, 699},
+	{9431221, 1409363},
+	{147807, 229},
+	{567045, 39016654},
+	{1965, 9223372036854775807},
+	{4288078517, 69256},
+	{247, 1919},
+	{1909, 249},
+	{11384, 452582583272768},
+	{462, 23981},
+	{907302, 1670299},
+	{412, 418},
+	{59281788, 96062868},
+	{3448, 762405},
+	{notImplemented, notImplemented},
+	{110, 17302065},
+	{526, 6292},
+	{19349939, 1142412777},
+	{4096, 78613970589919},
+	{17714, 10982},
+}
+
 func printPuzzleResult(day int, resultP1 int, resultP2 int) {
 
 	fmt.Println("Day", day, "- solution one is", resultP1)
 	fmt.Println("Day", day, "- solution two is", resultP2)
 
 	var messages []string
-	results := []resultSet{
-		{3210097, 4812287},
-		{8017076, 3146},
-		{280, 10554},
-		{1079, 699},
-		{9431221, 1409363},
-		{147807, 229},
-		{567045, 39016654},
-		{1965, 9223372036854775807},
-		{4288078517, 69256},
-		{247, 1919},
-		{1909, 249},
-		{11384, 452582583272768},
-		{462, 23981},
-		{907302, 1670299},
-		{412, 418},
-		{59281788, 96062868},
-		{3448, 762405},
-		{notImplemented, notImplemented},
-		{110, 17302065},
-		{526, 6292},
-		{19349939, 1142412777},
-		{notImplemented, notImplemented},
-		{17714, 10982},
-	}
 
 	if day > len(results) {
 		fmt.Println("Not all solutions implemented. Could not confirm results!")
