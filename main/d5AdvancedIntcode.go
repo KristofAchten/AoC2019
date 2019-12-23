@@ -8,6 +8,7 @@ import (
 )
 
 const defaultCodeSize = 7000
+const ominousEmptyInputValue = -1337
 
 type intcodeState struct {
 	program      []int64
@@ -67,6 +68,9 @@ func runIntCode(state intcodeState) (int64, bool, intcodeState) {
 			code[code[pointer+3]+b2i[offSet(modes, 3)]*relativeBase] = res[0] * res[1]
 			pointer += 4
 		case 3: // Take input
+			if len(input) == 0 {
+				return ominousEmptyInputValue, false, intcodeState{code, pointer, relativeBase, input}
+			}
 			code[code[pointer+1]+b2i[offSet(modes, 1)]*relativeBase] = input[0]
 			input = input[1:]
 			pointer += 2
