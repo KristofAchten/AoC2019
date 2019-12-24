@@ -38,6 +38,7 @@ func main() {
 	day21() // https://adventofcode.com/2019/day/21
 	day22() // https://adventofcode.com/2019/day/22
 	day23() // https://adventofcode.com/2019/day/23
+	day24() // https://adventofcode.com/2019/day/24
 
 	fmt.Println("**********************************************")
 	fmt.Printf("ELAPSED TIME OVER ALL CHALLENGES: %s \n", time.Since(start))

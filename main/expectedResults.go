@@ -34,6 +34,7 @@ var results = []resultSet{
 	{19349939, 1142412777},
 	{4096, 78613970589919},
 	{17714, 10982},
+	{19516944, notImplemented},
 }
 
 func printPuzzleResult(day int, resultP1 int, resultP2 int) {
