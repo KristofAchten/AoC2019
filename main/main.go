@@ -2,19 +2,20 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"time"
 )
 
 func main() {
-	/*old := os.Stdout
+	old := os.Stdout
 	wd, _ := os.Getwd()
 	f, _ := os.Create(wd + "/output.txt")
 
-	os.Stdout = f*/
+	os.Stdout = f
 
 	start := time.Now()
 
-	/*day1()  // https://adventofcode.com/2019/day/1
+	day1()  // https://adventofcode.com/2019/day/1
 	day2()  // https://adventofcode.com/2019/day/2
 	day3()  // https://adventofcode.com/2019/day/3
 	day4()  // https://adventofcode.com/2019/day/4
@@ -37,15 +38,15 @@ func main() {
 	day21() // https://adventofcode.com/2019/day/21
 	day22() // https://adventofcode.com/2019/day/22
 	day23() // https://adventofcode.com/2019/day/23
-	day24() // https://adventofcode.com/2019/day/24*/
+	day24() // https://adventofcode.com/2019/day/24
 	day25() // https://adventofcode.com/2019/day/25
 
 	fmt.Println("**********************************************")
 	fmt.Printf("ELAPSED TIME OVER ALL CHALLENGES: %s \n", time.Since(start))
 	fmt.Println("**********************************************")
 
-	/*_ = f.Close()
+	_ = f.Close()
 	os.Stdout = old
 
-	fmt.Println(string(getPuzzleInput("output.txt")))*/
+	fmt.Println(string(getPuzzleInput("output.txt")))
 }
